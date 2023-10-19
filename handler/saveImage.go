@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/RenanAlmeida225/go-upload-images/helper"
@@ -10,7 +11,22 @@ import (
 )
 
 func SaveImageHandler(ctx *gin.Context) {
-	image, _ := ctx.FormFile("image")
+	image, err := ctx.FormFile("image")
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "fail on save image",
+		})
+		return
+	}
+
+	if !strings.Contains(image.Header.Get("Content-Type"), "image/") {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "fail on save image",
+		})
+		return
+	}
+
 	title := ctx.PostForm("title")
 	description := ctx.PostForm("description")
 
@@ -27,6 +43,7 @@ func SaveImageHandler(ctx *gin.Context) {
 		MimeType:     image.Header.Get("Content-Type"),
 		Url:          url,
 	}
+
 	ctx.JSON(http.StatusCreated, gin.H{
 		"message": s,
 	})
