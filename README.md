@@ -1,5 +1,7 @@
 # Go upload images
 
+## EndPoints
+
 | Methods | Urls           | Actions                                               |
 | :------ | :------------- | :---------------------------------------------------- |
 | POST    | /images        | upload a image                                        |
