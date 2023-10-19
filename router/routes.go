@@ -1,7 +1,16 @@
 package router
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
 
-func initializeRoutes(app *fiber.App) {
+	"github.com/gin-gonic/gin"
+)
 
+func initializeRoutes(r *gin.Engine) {
+	v1 := r.Group("/api/v1")
+	v1.POST("/images", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusCreated, gin.H{
+			"msg": "created",
+		})
+	})
 }

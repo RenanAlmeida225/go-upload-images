@@ -3,11 +3,11 @@ package router
 import (
 	"log"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gin-gonic/gin"
 )
 
 func Initialize() {
-	app := fiber.New()
-	initializeRoutes(app)
-	log.Fatal(app.Listen(":8080"))
+	r := gin.Default()
+	initializeRoutes(r)
+	log.Fatal(r.Run())
 }
