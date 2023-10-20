@@ -9,16 +9,12 @@ import (
 )
 
 func DeleteImage(ctx *gin.Context) {
-	id := ctx.Query("id")
-	if id == "" {
-		sendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "queryParameter").Error())
-		return
-	}
+	id := ctx.Param("id")
 
 	image := schemas.Images{}
 
 	if err := db.First(&image, id).Error; err != nil {
-		sendError(ctx, http.StatusBadRequest, err.Error())
+		sendError(ctx, http.StatusNotFound, "image not found")
 		return
 	}
 
@@ -27,7 +23,7 @@ func DeleteImage(ctx *gin.Context) {
 		return
 	}
 
-	if err := db.Delete(&image).Error; err != nil {
+	if err := db.Delete(&image).Error; err != nil { // delete on database
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
