@@ -34,3 +34,16 @@ func (r *SaveImageRequest) Validate() error {
 	}
 	return nil
 }
+
+type UpdateImageRequest struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+
+func (r *UpdateImageRequest) Validate() error {
+	if r.Title != "" || r.Description != "" {
+		return nil
+	}
+	// If none of the fields were provided, return falsy
+	return fmt.Errorf("at least one valid field must be provided")
+}
