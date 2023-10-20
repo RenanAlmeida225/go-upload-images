@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/RenanAlmeida225/go-upload-images/helper"
@@ -11,39 +10,30 @@ import (
 )
 
 func SaveImageHandler(ctx *gin.Context) {
-	image, err := ctx.FormFile("image")
+	request := SaveImageRequest{}
+	ctx.ShouldBind(&request)
 
-	if err != nil {
+	if err := request.Validate(); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error": "fail on save image",
+			"message": err.Error(),
 		})
 		return
 	}
-
-	if !strings.Contains(image.Header.Get("Content-Type"), "image/") {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error": "fail on save image",
-		})
-		return
-	}
-
-	title := ctx.PostForm("title")
-	description := ctx.PostForm("description")
 
 	now := time.Now()
-	name := now.Format("20060102150405") + "_" + image.Filename
+	name := now.Format("20060102150405") + "_" + request.Image.Filename
 
-	url := helper.SaveInS3()
+	url := helper.SaveInS3() // save on aws s3
 
 	s := schemas.Images{
-		Title:        title,
-		Description:  description,
+		Title:        request.Title,
+		Description:  request.Description,
 		Name:         name,
-		OriginalName: image.Filename,
-		MimeType:     image.Header.Get("Content-Type"),
+		OriginalName: request.Image.Filename,
+		MimeType:     request.Image.Header.Get("Content-Type"),
 		Url:          url,
 	}
-
+	// save in postgres
 	ctx.JSON(http.StatusCreated, gin.H{
 		"message": s,
 	})
