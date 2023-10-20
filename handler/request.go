@@ -20,7 +20,7 @@ func (r *SaveImageRequest) Validate() error {
 	if r.Title == "" && r.Description == "" && r.Image == nil {
 		return fmt.Errorf("request body is empty or malformed")
 	}
-	if !strings.Contains(r.Image.Header.Get("Content-Type"), "image/") {
+	if r.Image != nil && !strings.Contains(r.Image.Header.Get("Content-Type"), "image/") {
 		return fmt.Errorf("mimetype invalid")
 	}
 	if r.Title == "" {
