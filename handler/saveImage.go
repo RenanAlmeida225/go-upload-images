@@ -14,9 +14,7 @@ func SaveImageHandler(ctx *gin.Context) {
 	ctx.ShouldBind(&request)
 
 	if err := request.Validate(); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": err.Error(),
-		})
+		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -34,7 +32,5 @@ func SaveImageHandler(ctx *gin.Context) {
 		Url:          url,
 	}
 	// save in postgres
-	ctx.JSON(http.StatusCreated, gin.H{
-		"message": s,
-	})
+	send(ctx, http.StatusCreated, "save image", s)
 }
