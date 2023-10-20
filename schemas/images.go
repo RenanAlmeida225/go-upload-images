@@ -1,13 +1,15 @@
 package schemas
 
-import "gorm.io/gorm"
+import "time"
 
 type Images struct {
-	gorm.Model
+	ID           uint `gorm:"primarykey"`
 	Title        string
 	Description  string
 	Name         string
 	OriginalName string
 	MimeType     string
 	Url          string
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
 }
