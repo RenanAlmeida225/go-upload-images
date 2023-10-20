@@ -27,7 +27,7 @@ func SaveImageHandler(ctx *gin.Context) {
 		return
 	}
 
-	s := schemas.Images{
+	i := schemas.Images{
 		Title:        request.Title,
 		Description:  request.Description,
 		Name:         name,
@@ -35,6 +35,8 @@ func SaveImageHandler(ctx *gin.Context) {
 		MimeType:     request.Image.Header.Get("Content-Type"),
 		Url:          url,
 	}
-	// save in postgres
-	send(ctx, http.StatusCreated, "save image", s)
+	if err = db.Create(&i).Error; err != nil { // save in database
+		sendError(ctx, http.StatusBadRequest, err.Error())
+	}
+	send(ctx, http.StatusCreated, "save image", &i)
 }
