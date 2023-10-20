@@ -16,9 +16,7 @@ func SaveInS3(image *multipart.FileHeader, name string) (string, error) {
 	}
 	defer f.Close()
 
-	client := clientS3
-
-	uploader := manager.NewUploader(client)
+	uploader := manager.NewUploader(clientS3)
 	result, err := uploader.Upload(context.TODO(), &s3.PutObjectInput{
 		Bucket: aws.String("upload-images-go"),
 		Key:    aws.String(name),
