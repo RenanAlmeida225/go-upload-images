@@ -21,7 +21,11 @@ func SaveImageHandler(ctx *gin.Context) {
 	now := time.Now()
 	name := now.Format("20060102150405") + "_" + request.Image.Filename
 
-	url := helper.SaveInS3() // save on aws s3
+	url, err := helper.SaveInS3(request.Image, name) // save on aws s3
+	if err != nil {
+		sendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	s := schemas.Images{
 		Title:        request.Title,
