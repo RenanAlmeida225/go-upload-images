@@ -7,6 +7,7 @@ import (
 )
 
 func Initialize() {
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.MaxMultipartMemory = 8 << 20
 	initializeRoutes(r)
