@@ -11,11 +11,7 @@ var (
 )
 
 func Init() error {
-	err := InitializeGodotenv()
-	if err != nil {
-		return err
-	}
-
+	var err error
 	clientS3, err = InitializeS3()
 	if err != nil {
 		return err

@@ -8,7 +8,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.11.91
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.40.2
 	github.com/gin-gonic/gin v1.9.1
-	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.5.3
 	gorm.io/gorm v1.25.2
 )
