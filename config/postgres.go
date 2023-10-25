@@ -22,6 +22,12 @@ func InitializePostegres() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err = db.AutoMigrate(&schemas.User{}); err != nil {
+		return nil, err
+	}
+	if err = db.AutoMigrate(&schemas.Confirmation{}); err != nil {
+		return nil, err
+	}
 	if err = db.AutoMigrate(&schemas.Images{}); err != nil {
 		return nil, err
 	}
