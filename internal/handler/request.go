@@ -73,3 +73,24 @@ func (r *SignUpRequest) Validate() error {
 
 	return nil
 }
+
+type SignInRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (r *SignInRequest) Validate() error {
+	if r.Email == "" && r.Password == "" {
+		return fmt.Errorf("request body is empty or malformed")
+	}
+
+	if r.Email == "" {
+		return errParamIsRequired("email", "string")
+	}
+
+	if r.Password == "" {
+		return errParamIsRequired("password", "string")
+	}
+
+	return nil
+}
