@@ -9,7 +9,7 @@ type User struct {
 	Username  string
 	Email     string `gorm:"unique"`
 	Password  string
-	IsEnable  string `gorm:"default:false"`
+	IsEnable  bool `gorm:"default:false"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
