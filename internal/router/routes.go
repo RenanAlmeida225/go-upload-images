@@ -10,7 +10,7 @@ func initializeRoutes(r *gin.Engine) {
 	v1 := r.Group("/api/v1")
 	{
 		v1.POST("/signUp", handler.SignUp)
-		v1.GET("/confirmation/:token")
+		v1.GET("/confirmation/:token", handler.ConfirmationEmail)
 		v1.POST("/signIn")
 		v1.POST("/images", handler.SaveImageHandler)
 		v1.GET("/images", handler.GetAllImages)
