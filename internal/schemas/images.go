@@ -10,6 +10,7 @@ type Images struct {
 	OriginalName string
 	MimeType     string
 	Url          string
+	UserId       uint
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
