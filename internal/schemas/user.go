@@ -8,7 +8,7 @@ type User struct {
 	ID        uint `gorm:"primarykey"`
 	Username  string
 	Email     string `gorm:"unique"`
-	Passwprd  string
+	Password  string
 	IsEnable  string `gorm:"default:false"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
