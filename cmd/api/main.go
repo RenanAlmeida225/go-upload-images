@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/RenanAlmeida225/go-upload-images/config"
-	"github.com/RenanAlmeida225/go-upload-images/router"
+	"github.com/RenanAlmeida225/go-upload-images/internal/router"
 )
 
 func main() {

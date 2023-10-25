@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/RenanAlmeida225/go-upload-images/handler"
+	"github.com/RenanAlmeida225/go-upload-images/internal/handler"
 	"github.com/gin-gonic/gin"
 )
 

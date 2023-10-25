@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/RenanAlmeida225/go-upload-images/config"
-	"github.com/RenanAlmeida225/go-upload-images/helper"
+	"github.com/RenanAlmeida225/go-upload-images/pkg"
 	"gorm.io/gorm"
 )
 
@@ -11,6 +11,6 @@ var (
 )
 
 func InitializeHandler() {
-	helper.InitializeHelper()
+	pkg.InitializePkg()
 	db = config.GetPostgres()
 }

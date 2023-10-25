@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RenanAlmeida225/go-upload-images/helper"
-	"github.com/RenanAlmeida225/go-upload-images/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/internal/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/pkg/s3"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +21,7 @@ func SaveImageHandler(ctx *gin.Context) {
 	now := time.Now()
 	name := now.Format("20060102150405") + "_" + request.Image.Filename
 
-	url, err := helper.SaveInS3(request.Image, name) // save on aws s3
+	url, err := s3.SaveInS3(request.Image, name) // save on aws s3
 	if err != nil {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return

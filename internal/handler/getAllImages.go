@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/RenanAlmeida225/go-upload-images/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/internal/schemas"
 	"github.com/gin-gonic/gin"
 )
 

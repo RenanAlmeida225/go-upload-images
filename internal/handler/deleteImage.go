@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/RenanAlmeida225/go-upload-images/helper"
-	"github.com/RenanAlmeida225/go-upload-images/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/internal/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/pkg/s3"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +18,7 @@ func DeleteImage(ctx *gin.Context) {
 		return
 	}
 
-	if err := helper.DeleteInS3(image.Name); err != nil { // delete on aws
+	if err := s3.DeleteInS3(image.Name); err != nil { // delete on aws
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
