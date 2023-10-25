@@ -47,3 +47,29 @@ func (r *UpdateImageRequest) Validate() error {
 	// If none of the fields were provided, return falsy
 	return fmt.Errorf("at least one valid field must be provided")
 }
+
+type SignUpRequest struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (r *SignUpRequest) Validate() error {
+	if r.Username == "" && r.Email == "" && r.Password == "" {
+		return fmt.Errorf("request body is empty or malformed")
+	}
+
+	if r.Username == "" {
+		return errParamIsRequired("username", "string")
+	}
+
+	if r.Email == "" {
+		return errParamIsRequired("email", "string")
+	}
+
+	if r.Password == "" {
+		return errParamIsRequired("password", "string")
+	}
+
+	return nil
+}
