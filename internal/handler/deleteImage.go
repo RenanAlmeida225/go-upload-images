@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/RenanAlmeida225/go-upload-images/internal/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/pkg/s3"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,10 +25,10 @@ func DeleteImage(ctx *gin.Context) {
 		return
 	}
 
-	// if err := s3.DeleteInS3(image.Name); err != nil { // delete on aws
-	// 	sendError(ctx, http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := s3.DeleteInS3(image.Name); err != nil { // delete on aws
+		sendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	if err := db.Delete(&image).Error; err != nil { // delete on database
 		sendError(ctx, http.StatusBadRequest, err.Error())

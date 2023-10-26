@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/RenanAlmeida225/go-upload-images/internal/schemas"
+	"github.com/RenanAlmeida225/go-upload-images/pkg/s3"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,11 +28,11 @@ func SaveImageHandler(ctx *gin.Context) {
 	now := time.Now()
 	name := now.Format("20060102150405") + "_" + request.Image.Filename
 
-	/* url, err := s3.SaveInS3(request.Image, name) // save on aws s3
+	url, err := s3.SaveInS3(request.Image, name) // save on aws s3
 	if err != nil {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
-	} */
+	}
 
 	image := schemas.Images{
 		Title:        request.Title,
@@ -39,7 +40,7 @@ func SaveImageHandler(ctx *gin.Context) {
 		Name:         name,
 		OriginalName: request.Image.Filename,
 		MimeType:     request.Image.Header.Get("Content-Type"),
-		Url:          "url",
+		Url:          url,
 		UserId:       user.ID,
 	}
 
