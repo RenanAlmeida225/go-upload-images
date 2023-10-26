@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"mime/multipart"
+	"net/mail"
 	"strings"
 )
 
@@ -67,6 +68,10 @@ func (r *SignUpRequest) Validate() error {
 		return errParamIsRequired("email", "string")
 	}
 
+	if _, err := mail.ParseAddress(r.Email); err != nil {
+		return err
+	}
+
 	if r.Password == "" {
 		return errParamIsRequired("password", "string")
 	}
@@ -86,6 +91,10 @@ func (r *SignInRequest) Validate() error {
 
 	if r.Email == "" {
 		return errParamIsRequired("email", "string")
+	}
+
+	if _, err := mail.ParseAddress(r.Email); err != nil {
+		return err
 	}
 
 	if r.Password == "" {
